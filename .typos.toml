@@ -1,0 +1,2 @@
+[default.extend-words]
+nclude = "nclude"  # Don't fix "[Ii]nclude" in gitignore

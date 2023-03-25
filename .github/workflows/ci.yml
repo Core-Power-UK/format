@@ -1,0 +1,14 @@
+name: Continuous Integration
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, ready_for_review]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  standard_checks:
+    name: Standard Checks
+    uses: ./.github/workflows/ci_standard_checks.yml
