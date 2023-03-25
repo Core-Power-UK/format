@@ -1,0 +1,7 @@
+- id: format
+  name: format
+  description: "Run custom formatting"
+  entry: format
+  language: python
+  types: [python]
+  require_serial: true
