@@ -8,7 +8,7 @@ Add this to your `.pre-commit-config.yaml`:
 
 ```yaml
 - repo: https://github.com/Core-Power-UK/format
-  rev: v1.0.0
+  rev: v1.0.2
   hooks:
     - id: format
 ```
