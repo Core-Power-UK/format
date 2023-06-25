@@ -24,6 +24,7 @@ def fix_file(file):
     if contents_text != contents_text_orig:
         Path(file).write_bytes(contents_text.encode())
 
+    return contents_text != contents_text_orig
 
 def format_files(args):
     """Format specified files."""
@@ -38,10 +39,11 @@ def format_files(args):
 
             return 1
 
+    ret = 0
     for filename in args.filenames:
-        fix_file(filename)
+        ret |= fix_file(filename)
 
-    return 0
+    return ret
 
 
 def main(argv=None):
