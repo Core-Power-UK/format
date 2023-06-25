@@ -10,7 +10,7 @@ from black.mode import Mode
 
 def fix_file(file):
     """Fix a single file and write the results if changed."""
-    contents_text_orig = contents_text = file.read_bytes().decode()
+    contents_text_orig = contents_text = Path(file).read_bytes().decode()
 
     # Remove trailing commas
     contents_text = format_str(contents_text, mode=Mode(magic_trailing_comma=False))
@@ -22,7 +22,7 @@ def fix_file(file):
     contents_text = format_str(contents_text, mode=Mode(magic_trailing_comma=True))
 
     if contents_text != contents_text_orig:
-        file.write_bytes(contents_text.encode())
+        Path(file).write_bytes(contents_text.encode())
 
 
 def format_files(args):
@@ -39,7 +39,7 @@ def format_files(args):
             return 1
 
     for filename in args.filenames:
-        fix_file(Path(filename))
+        fix_file(filename)
 
     return 0
 
