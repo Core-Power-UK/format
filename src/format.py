@@ -26,6 +26,7 @@ def fix_file(file):
 
     return contents_text != contents_text_orig
 
+
 def format_files(args):
     """Format specified files."""
     if len(args.filenames) == 0:
