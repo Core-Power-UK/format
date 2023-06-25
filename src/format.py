@@ -8,7 +8,7 @@ from black import format_str
 from black.mode import Mode
 
 
-def fix_file(file, args):
+def fix_file(file):
     """Fix a single file and write the results if changed."""
     contents_text_orig = contents_text = file.read_bytes().decode()
 
@@ -16,19 +16,13 @@ def fix_file(file, args):
     contents_text = format_str(contents_text, mode=Mode(magic_trailing_comma=False))
 
     # Add trailing commas
-    contents_text = _fix_src(contents_text, args.min_version)
+    contents_text = _fix_src(contents_text, (3, 6))
 
     # Format with black
     contents_text = format_str(contents_text, mode=Mode(magic_trailing_comma=True))
 
     if contents_text != contents_text_orig:
         file.write_bytes(contents_text.encode())
-
-
-class TrailingCommaArgs:
-    """Trailing commas arguments class."""
-
-    min_version = (3, 6)
 
 
 def format_files(args):
@@ -44,9 +38,8 @@ def format_files(args):
 
             return 1
 
-    trailing_comma_cargs = TrailingCommaArgs()
     for filename in args.filenames:
-        fix_file(Path(filename), trailing_comma_cargs)
+        fix_file(Path(filename))
 
     return 0
 
