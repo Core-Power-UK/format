@@ -31,13 +31,6 @@ class TrailingCommaArgs:
     min_version = (3, 6)
 
 
-def run_formatting(args):
-    """Run formatting for specified files."""
-    trailing_comma_cargs = TrailingCommaArgs()
-    for filename in args.filenames:
-        fix_file(Path(filename), trailing_comma_cargs)
-
-
 def format_files(args):
     """Format specified files."""
     if len(args.filenames) == 0:
@@ -51,7 +44,9 @@ def format_files(args):
 
             return 1
 
-    run_formatting(args)
+    trailing_comma_cargs = TrailingCommaArgs()
+    for filename in args.filenames:
+        fix_file(Path(filename), trailing_comma_cargs)
 
     return 0
 
