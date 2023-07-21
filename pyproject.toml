@@ -1,91 +1,37 @@
+[tool.mypy]
+exclude = "env"
+python_version = "3.11"
+strict = true
+
 [tool.ruff]
-fixable = [
-  # "ANN", # flake8-annotations
-  "B",  # flake8-bugbear
-  # "BLE", # flake8-blind-except
-  "C4",  # flake8-comprehensions
-  "C90",  # mccabe
-  # "COM", # flake8-commas
-  "D",  # pydocstyle
-  "E",  # pycodestyle
-  "ERA",  # eradicate
-  "EXE",  # flake8-executable
-  "F",  # Pyflakes
-  # "G",   # flake8-logging-format
-  "I",  # isort
-  # "PD",  # pandas-vet
-  "PIE",  # flake8-pie
-  "PL",  # Pylint
-  "PT",  # flake8-pytest-style
-  "Q",  # flake8-quotes
-  "RET",  # flake8-return
-  "RSE",  # flake8-raise
-  "RUF",  # Ruff-specific rules
-  "SIM",  # flake8-simplify
-  # "TCH", # flake8-type-checking
-  "TID",  # flake8-tidy-imports
-  "UP",  # pyupgrade
-  "W",  # pycodestyle
-]
 ignore = [
+  "ANN101",  # Ignore missing type annotation for self
+  "D106",  # Requiring doc strings in subclasses results in duplicated doc strings
   "D401",  # Ignore non-imperative mood in the first line of a doc string
+  "FBT",  # Ignore flake8-boolean-trap - Allow boolean default values
+  "FIX002",  # Items to be fixed should be marked as TODO
   "PLR0913",  # Ignore too many arguments passed to a function
   "PLR2004",  # Ignore magic value comparison
+  "RUF012",  # Ignore mutable class defaults check
+  "S101",  # Allow asserts
+  "T201",  # Allow print statements
 ]
-select = [
-  "A",  # flake8-builtins
-  # "ANN", # flake8-annotations
-  "ARG",  # flake8-unused-arguments
-  "B",  # flake8-bugbear
-  # "BLE", # flake8-blind-except
-  "C4",  # flake8-comprehensions
-  "C90",  # mccabe
-  # "COM", # flake8-commas
-  "D",  # pydocstyle
-  "DJ",  # flake8-django
-  # "DTZ", # flake8-datetimez
-  "E",  # pycodestyle
-  "EM",  # flake8-errmsg
-  "ERA",  # eradicate
-  "EXE",  # flake8-executable
-  "F",  # Pyflakes
-  # "FBT", # flake8-boolean-trap
-  # "G",   # flake8-logging-format
-  "I",  # isort
-  "ICN",  # flake8-import-conventions
-  "INP",
-  "ISC",  # flake8-implicit-str-concat
-  "N",  # pep8-naming
-  # "PD",  # pandas-vet
-  "PGH",  # pygrep-hooks
-  "PIE",  # flake8-pie
-  "PL",  # Pylint
-  "PT",  # flake8-pytest-style
-  "PTH",  # flake8-use-pathlib
-  # "PYI", # flake8-pyi
-  "Q",  # flake8-quotes
-  "RET",  # flake8-return
-  "RSE",  # flake8-raise
-  "RUF",  # Ruff-specific rules
-  "S",  # flake8-bandit
-  "SIM",  # flake8-simplify
-  "SLF",  # flake8-self
-  "T10",  # flake8-debugger
-  # "T20",  # flake8-print
-  # "TCH", # flake8-type-checking
-  "TID",  # flake8-tidy-imports
-  # "TRY", # tryceratops
-  "UP",  # pyupgrade
-  "W",  # pycodestyle
-  "YTT",  # flake8-2020
+select = ["ALL"]  # Enable all ruff plugins
+target-version = "py311"
+unfixable = [
+  "ERA001",  # Disable autofix for commented-out code
+  "F401",  # Disable autofix for unused imports
+  "F841",  # Disable autofix for unused variables
 ]
-target-version = "py38"
 
 [tool.ruff.flake8-tidy-imports]
 ban-relative-imports = "all"
 
 [tool.ruff.flake8-unused-arguments]
 ignore-variadic-names = true
+
+[tool.ruff.isort]
+required-imports = ["from __future__ import annotations"]
 
 [tool.ruff.mccabe]
 max-complexity = 10
