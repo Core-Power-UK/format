@@ -1,14 +1,20 @@
 #!/usr/bin/env python3
 """Custom formatting pre-commit hook."""
+from __future__ import annotations
+
 import argparse
 from pathlib import Path
+from typing import TYPE_CHECKING
 
-from add_trailing_comma._main import _fix_src
+from add_trailing_comma._main import _fix_src  # type: ignore[import]
 from black import format_str
 from black.mode import Mode
 
+if TYPE_CHECKING:
+    from collections.abc import Sequence
 
-def fix_file(file):
+
+def fix_file(file: str) -> bool:
     """Fix a single file and write the results if changed."""
     contents_text_orig = contents_text = Path(file).read_bytes().decode()
 
@@ -27,7 +33,7 @@ def fix_file(file):
     return contents_text != contents_text_orig
 
 
-def format_files(args):
+def format_files(args: argparse.Namespace) -> int:
     """Format specified files."""
     if len(args.filenames) == 0:
         print("Please pass files to be formatted")
@@ -47,7 +53,7 @@ def format_files(args):
     return ret
 
 
-def main(argv=None):
+def main(argv: Sequence[str] | None = None) -> int:
     """Run Formatter."""
     parser = argparse.ArgumentParser()
     parser.add_argument("filenames", nargs="*")
