@@ -24,18 +24,19 @@ repos:
       - id: check-toml
 
   - repo: https://github.com/crate-ci/typos
-    rev: v1.14.3
+    rev: v1.16.1
     hooks:
       - id: typos
 
   - repo: https://github.com/pappasam/toml-sort
-    rev: v0.23.0
+    rev: v0.23.1
     hooks:
       - id: toml-sort
         args:
           - --in-place
           - --trailing-comma-inline-array
           - --spaces-before-inline-comment=2
+          - --all
 
   - repo: https://github.com/PyCQA/flake8
     rev: 6.0.0
@@ -52,7 +53,7 @@ repos:
         args: [--fix]
 
   - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: v2.7.1
+    rev: v3.0.0
     hooks:
       - id: prettier
         args: [--trailing-comma, all]
