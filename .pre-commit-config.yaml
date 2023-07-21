@@ -45,8 +45,8 @@ repos:
           - flake8-clean-block==0.1.2
         args: ["--ignore=E,F,W,C90"]
 
-  - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: v0.0.259
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.0.278
     hooks:
       - id: ruff
         args: [--fix]
