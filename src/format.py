@@ -22,7 +22,7 @@ def fix_file(file: str) -> bool:
     contents_text = format_str(contents_text, mode=Mode(magic_trailing_comma=False))
 
     # Add trailing commas
-    contents_text = _fix_src(contents_text, (3, 6))
+    contents_text = _fix_src(contents_text)
 
     # Format with black
     contents_text = format_str(contents_text, mode=Mode(magic_trailing_comma=True))
