@@ -121,7 +121,7 @@ def update_pre_commit_config() -> int:
     with pre_commit_config.open("r") as f:
         pre_commit = f.readlines()
 
-    deps = [line.strip().strip("- ") for line in pre_commit if "==" in line]
+    deps = [line.strip().removeprefix("- ") for line in pre_commit if "==" in line]
     output_deps = get_new_versions_of_deps(deps)
     if isinstance(output_deps, int):
         return output_deps
@@ -132,12 +132,39 @@ def update_pre_commit_config() -> int:
     return 0
 
 
+def update_workflows() -> int:
+    """Update workflows dependencies."""
+    workflows = Path(__file__).parent.parent / ".github/workflows"
+    print("Checking workflows")
+    for workflow in workflows.glob("*.yml"):
+        print(f"Checking {workflow.name}")
+        with workflow.open("r") as f:
+            workflow_str = f.read()
+
+        deps = [
+            line.strip().removeprefix("python -m pip install ")
+            for line in workflow_str.splitlines()
+            if "==" in line
+        ]
+        output_deps = get_new_versions_of_deps(deps)
+        if isinstance(output_deps, int):
+            return output_deps
+
+        if deps != output_deps:
+            update_file_deps(workflow, deps, output_deps)
+
+    return 0
+
+
 def main() -> int:
     """Update dependencies."""
     if update_pyproject_toml() == 1:
         return 1
 
     if update_pre_commit_config() == 1:
+        return 1
+
+    if update_workflows() == 1:
         return 1
 
     return 0
