@@ -1,3 +1,20 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = ["setuptools>=61.0"]
+
+[project]
+dependencies = [
+  "add-trailing-comma==3.0.0",
+  "black==23.7.0",
+]
+description = "Run custom formatting"
+name = "format"
+requires-python = ">=3.8"
+version = "1.0.2"
+
+[project.scripts]
+format = "format:main"
+
 [tool.mypy]
 exclude = "env"
 python_version = "3.11"
