@@ -79,6 +79,7 @@ repos:
         additional_dependencies:
           - add-trailing-comma==3.0.0
           - black==23.7.0
+          - types-requests==2.31.0.2
 
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: v3.0.0
