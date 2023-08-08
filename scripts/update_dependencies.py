@@ -49,6 +49,21 @@ def get_new_versions(depencancy: Requirement) -> list[Version] | int:
     return versions
 
 
+def update_file_deps(file: Path, deps: list[str], output_deps: list[str]) -> None:
+    """Update pyproject.toml with new dependencies."""
+    print(f"Updating {file.name}")
+    with file.open("r") as f:
+        pyproject_str = f.read()
+
+    for dep, output_dep in zip(deps, output_deps, strict=True):
+        if dep != output_dep:
+            print(f'Updating "{dep}" to "{output_dep}"')
+            pyproject_str = pyproject_str.replace(dep, output_dep)
+
+    with file.open("w") as f:
+        f.write(pyproject_str)
+
+
 def main() -> int:
     """Update dependencies."""
     pyproject_toml = Path(__file__).parent.parent / "pyproject.toml"
@@ -82,19 +97,9 @@ def main() -> int:
         print(f"New versions found for {depencancy.name}: {versions[-1]}")
         output_deps.append(f"{depencancy.name}=={versions[-1]}")
 
-    # Update pyproject.toml if dependencies have changed
+    # Update file if its dependencies have changed
     if deps != output_deps:
-        print("Updating pyproject.toml")
-        with pyproject_toml.open("r") as f:
-            pyproject_str = f.read()
-
-        for dep, output_dep in zip(deps, output_deps, strict=True):
-            if dep != output_dep:
-                print(f'Updating "{dep}" to "{output_dep}"')
-                pyproject_str = pyproject_str.replace(dep, output_dep)
-
-        with pyproject_toml.open("w") as f:
-            f.write(pyproject_str)
+        update_file_deps(pyproject_toml, deps, output_deps)
 
     return 0
 
