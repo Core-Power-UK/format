@@ -89,6 +89,7 @@ def update_file_deps(file: Path, deps: list[str], output_deps: list[str]) -> Non
 def update_pyproject_toml() -> int:
     """Check for updated pyproject.toml dependencies."""
     pyproject_toml = Path(__file__).parent.parent / "pyproject.toml"
+    print("Checking pyproject.toml")
     with pyproject_toml.open("rb") as f:
         pyproject = tomllib.load(f)
 
@@ -113,9 +114,30 @@ def update_pyproject_toml() -> int:
     return 0
 
 
+def update_pre_commit_config() -> int:
+    """Check for updated pre-commit config dependencies."""
+    pre_commit_config = Path(__file__).parent.parent / ".pre-commit-config.yaml"
+    print("Checking .pre-commit-config.yaml")
+    with pre_commit_config.open("r") as f:
+        pre_commit = f.readlines()
+
+    deps = [line.strip().strip("- ") for line in pre_commit if "==" in line]
+    output_deps = get_new_versions_of_deps(deps)
+    if isinstance(output_deps, int):
+        return output_deps
+
+    if deps != output_deps:
+        update_file_deps(pre_commit_config, deps, output_deps)
+
+    return 0
+
+
 def main() -> int:
     """Update dependencies."""
     if update_pyproject_toml() == 1:
+        return 1
+
+    if update_pre_commit_config() == 1:
         return 1
 
     return 0
