@@ -86,8 +86,8 @@ def update_file_deps(file: Path, deps: list[str], output_deps: list[str]) -> Non
         f.write(pyproject_str)
 
 
-def main() -> int:
-    """Update dependencies."""
+def update_pyproject_toml() -> int:
+    """Check for updated pyproject.toml dependencies."""
     pyproject_toml = Path(__file__).parent.parent / "pyproject.toml"
     with pyproject_toml.open("rb") as f:
         pyproject = tomllib.load(f)
@@ -109,6 +109,14 @@ def main() -> int:
     # Update file if its dependencies have changed
     if deps != output_deps:
         update_file_deps(pyproject_toml, deps, output_deps)
+
+    return 0
+
+
+def main() -> int:
+    """Update dependencies."""
+    if update_pyproject_toml() == 1:
+        return 1
 
     return 0
 
