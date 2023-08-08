@@ -49,6 +49,28 @@ def get_new_versions(depencancy: Requirement) -> list[Version] | int:
     return versions
 
 
+def get_new_versions_of_deps(deps: list[str]) -> list[str] | int:
+    """Get new versions of depencancy from PYPI."""
+    output_deps = []
+    for requirement in deps:
+        depencancy = Requirement(requirement)
+        versions = get_new_versions(depencancy)
+        if isinstance(versions, int):
+            return versions
+
+        # Check if new versions are available
+        if len(versions) == 0:
+            print(f"No new versions found for {depencancy.name}")
+            output_deps.append(requirement)
+            continue
+
+        # Update to latest version
+        print(f"New versions found for {depencancy.name}: {versions[-1]}")
+        output_deps.append(f"{depencancy.name}=={versions[-1]}")
+
+    return output_deps
+
+
 def update_file_deps(file: Path, deps: list[str], output_deps: list[str]) -> None:
     """Update pyproject.toml with new dependencies."""
     print(f"Updating {file.name}")
@@ -80,22 +102,9 @@ def main() -> int:
         )
         return 1
 
-    output_deps = []
-    for requirement in deps:
-        depencancy = Requirement(requirement)
-        versions = get_new_versions(depencancy)
-        if isinstance(versions, int):
-            return versions
-
-        # Check if new versions are available
-        if len(versions) == 0:
-            print(f"No new versions found for {depencancy.name}")
-            output_deps.append(requirement)
-            continue
-
-        # Update to latest version
-        print(f"New versions found for {depencancy.name}: {versions[-1]}")
-        output_deps.append(f"{depencancy.name}=={versions[-1]}")
+    output_deps = get_new_versions_of_deps(deps)
+    if isinstance(output_deps, int):
+        return output_deps
 
     # Update file if its dependencies have changed
     if deps != output_deps:
