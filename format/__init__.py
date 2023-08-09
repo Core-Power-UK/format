@@ -33,15 +33,6 @@ def fix_file(file: str) -> bool:
     return contents_text != contents_text_orig
 
 
-def fix_multiple_files(files: Sequence[str]) -> int:
-    """Fix multiple files."""
-    ret = 0
-    for file in files:
-        ret |= fix_file(file)
-
-    return ret
-
-
 def main(argv: Sequence[str] | None = None) -> int:
     """Run Formatter."""
     parser = argparse.ArgumentParser()
@@ -61,6 +52,8 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     if len(args.filenames) == 1:
         return fix_file(args.filenames[0])
+
+    from format.concurrency import fix_multiple_files
 
     return fix_multiple_files(args.filenames)
 
