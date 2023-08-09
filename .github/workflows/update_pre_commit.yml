@@ -1,0 +1,82 @@
+name: Pre-commit autoupdate
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: 30 5 * * 3
+
+jobs:
+  autoupdate:
+    name: Autoupdate pre-commit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.5.3
+
+      - name: Set up Python
+        id: setup_python
+        uses: actions/setup-python@v4.7.0
+        with:
+          python-version: "3.11"
+          check-latest: true
+
+      - name: Pip Cache
+        uses: actions/cache@v3
+        id: python_cache
+        with:
+          path: |
+            env
+            ~/.cache/pip
+          key: env-${{ steps.setup_python.outputs.python-version }}-${{ hashFiles('requirements/lint.txt') }}
+          restore-keys: |
+            env-${{ steps.setup_python.outputs.python-version }}
+
+      - name: Cache Pre-commit
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pre-commit
+          key: pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
+          restore-keys: |
+            pre-commit-
+
+      - name: Install linting dependencies
+        if: ${{ steps.python_cache.outputs.cache-hit != 'true' }}
+        run: |
+          python -m pip install virtualenv --disable-pip-version-check
+          python -m virtualenv env
+          env/bin/python -m pip install -r requirements/lint.txt --disable-pip-version-check
+
+      - name: Run pre-commit autoupdate
+        env:
+          PRE_COMMIT_COLOR: always
+          SKIP: no-commit-to-branch
+        run: env/bin/python -m pre_commit autoupdate --jobs=4
+
+      - name: Add pre-commit fixes
+        env:
+          PRE_COMMIT_COLOR: always
+          SKIP: no-commit-to-branch,eslint
+        run: env/bin/python -m pre_commit run --all-files
+
+      - name: Generate token
+        id: generate_token
+        if: always()
+        env:
+          app_id: ${{ secrets.APP_ID }}
+          app_private_key: ${{ secrets.APP_PRIVATE_KEY }}
+        uses: tibdex/github-app-token@v1.8.0
+        with:
+          app_id: ${{ env.app_id }}
+          private_key: ${{ env.app_private_key }}
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5.0.2
+        if: always()
+        with:
+          branch: update/pre-commit/autoupdate
+          title: Autoupdate pre-commit hooks
+          commit-message: Autoupdate pre-commit hooks
+          body: Bump versions of pre-commit tools to latest version
+          labels: "Type: Dependency Update"
+          token: ${{ steps.generate_token.outputs.token }}
+          assignees: calumy
