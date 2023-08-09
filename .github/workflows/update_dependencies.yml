@@ -1,0 +1,47 @@
+name: Update dependencies
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "30 5 1 * *"
+
+jobs:
+  auto-update:
+    name: Update dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.5.3
+
+      - name: Set up Python
+        id: setup_python
+        uses: actions/setup-python@v4.7.0
+        with:
+          python-version: "3.11"
+          check-latest: true
+
+      - name: Update dependencies
+        run: |
+          python -m pip install requests==2.31.0
+          python scripts/update_dependencies.py
+
+      - name: Generate token
+        id: generate_token
+        env:
+          app_id: ${{ secrets.APP_ID }}
+          app_private_key: ${{ secrets.APP_PRIVATE_KEY }}
+        uses: tibdex/github-app-token@v1.8.0
+        with:
+          app_id: ${{ env.app_id }}
+          private_key: ${{ env.app_private_key }}
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5.0.2
+        with:
+          branch: update/dependancies
+          title: Update dependencies
+          commit-message: Update dependanci,es
+          body: Bump versions of format depencancies to latest version
+          labels: Dependency Update
+          token: ${{ steps.generate_token.outputs.token }}
+          assignees: calumy
