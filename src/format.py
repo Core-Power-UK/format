@@ -33,8 +33,12 @@ def fix_file(file: str) -> bool:
     return contents_text != contents_text_orig
 
 
-def format_files(args: argparse.Namespace) -> int:
-    """Format specified files."""
+def main(argv: Sequence[str] | None = None) -> int:
+    """Run Formatter."""
+    parser = argparse.ArgumentParser()
+    parser.add_argument("filenames", nargs="*")
+    args = parser.parse_args(argv)
+
     if len(args.filenames) == 0:
         print("Please pass files to be formatted")
 
@@ -51,15 +55,6 @@ def format_files(args: argparse.Namespace) -> int:
         ret |= fix_file(filename)
 
     return ret
-
-
-def main(argv: Sequence[str] | None = None) -> int:
-    """Run Formatter."""
-    parser = argparse.ArgumentParser()
-    parser.add_argument("filenames", nargs="*")
-    args = parser.parse_args(argv)
-
-    return format_files(args)
 
 
 if __name__ == "__main__":
