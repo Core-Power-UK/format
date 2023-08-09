@@ -50,6 +50,10 @@ def main(argv: Sequence[str] | None = None) -> int:
 
             return 1
 
+    if len(args.filenames) == 1:
+        return fix_file(args.filenames[0])
+
+    print("Reformatting multiple files")
     ret = 0
     for filename in args.filenames:
         ret |= fix_file(filename)
