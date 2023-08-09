@@ -1,23 +1,23 @@
 version: 2
 updates:
-  - package-ecosystem: "pip"
-    directory: "/requirements"
+  - package-ecosystem: pip
+    directory: /requirements
     schedule:
-      interval: "monthly"
+      interval: monthly
       time: "06:30"
-      timezone: "Europe/Belfast"
+      timezone: Europe/Belfast
     labels:
-      - "Dependency Update"
+      - Dependency Update
     reviewers:
       - calumy
 
-  - package-ecosystem: "github-actions"
-    directory: "/"
+  - package-ecosystem: github-actions
+    directory: /
     schedule:
-      interval: "monthly"
+      interval: monthly
       time: "06:30"
-      timezone: "Europe/Belfast"
+      timezone: Europe/Belfast
     labels:
-      - "Dependency Update"
+      - Dependency Update
     reviewers:
       - calumy
