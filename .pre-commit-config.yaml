@@ -77,7 +77,7 @@ repos:
       - id: mypy
         args: [--config-file, pyproject.toml]
         additional_dependencies:
-          - add-trailing-comma==3.0.0
+          - add-trailing-comma==3.1.0
           - black==23.7.0
           - types-requests==2.31.0.2
 
