@@ -34,7 +34,7 @@ jobs:
         env:
           app_id: ${{ secrets.APP_ID }}
           app_private_key: ${{ secrets.APP_PRIVATE_KEY }}
-        uses: tibdex/github-app-token@v1.8.2
+        uses: tibdex/github-app-token@v2.1.0
         with:
           app_id: ${{ env.app_id }}
           private_key: ${{ env.app_private_key }}
