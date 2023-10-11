@@ -11,7 +11,7 @@ repos:
       - id: identity
         stages: [commit]
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
+    rev: v4.5.0
     hooks:
       - id: no-commit-to-branch
         args: ["--branch", main]
@@ -33,7 +33,7 @@ repos:
       - id: check-github-workflows
 
   - repo: https://github.com/crate-ci/typos
-    rev: v1.16.17
+    rev: v1.16.18
     hooks:
       - id: typos
 
