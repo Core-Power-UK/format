@@ -6,7 +6,7 @@ import argparse
 from pathlib import Path
 from typing import TYPE_CHECKING
 
-from add_trailing_comma._main import _fix_src  # type: ignore[import]
+from add_trailing_comma._main import _fix_src  # type: ignore[import-untyped]
 from black import format_str
 from black.mode import Mode
 
