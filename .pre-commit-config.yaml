@@ -53,7 +53,7 @@ repos:
       - id: auto-walrus
 
   - repo: https://github.com/Core-Power-UK/format
-    rev: v23.8.1
+    rev: v23.10.1
     hooks:
       - id: format
 
@@ -66,13 +66,13 @@ repos:
         args: ["--ignore=E,F,W,C90"]
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.1.0
+    rev: v0.1.2
     hooks:
       - id: ruff
         args: [--fix]
 
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.6.0
+    rev: v1.6.1
     hooks:
       - id: mypy
         args: [--config-file, pyproject.toml]
