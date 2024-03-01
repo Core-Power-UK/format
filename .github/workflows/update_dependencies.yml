@@ -40,7 +40,7 @@ jobs:
           private_key: ${{ env.app_private_key }}
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v5.0.2
+        uses: peter-evans/create-pull-request@v6.0.1
         with:
           branch: update/dependancies
           title: Update dependencies
