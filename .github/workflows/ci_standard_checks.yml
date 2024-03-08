@@ -14,8 +14,7 @@ jobs:
         id: setup_python
         uses: actions/setup-python@v5.0.0
         with:
-          python-version: "3.11"
-          check-latest: true
+          python-version: 3.11
 
       # Disable pip version check globally for all subsequent steps
       - name: Disable pip version check
