@@ -24,6 +24,12 @@ repos:
       - id: check-yaml
       - id: mixed-line-ending
         args: [--fix=lf]
+      - id: file-contents-sorter
+        files: ".cspell/dict.txt"
+        args: [--ignore-case]
+      - id: file-contents-sorter
+        files: ".cspell/config_dict.txt"
+        args: [--ignore-case]
 
   - repo: https://github.com/python-jsonschema/check-jsonschema
     rev: 0.28.0
