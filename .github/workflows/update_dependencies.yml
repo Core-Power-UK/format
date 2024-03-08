@@ -41,10 +41,10 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6.0.1
         with:
-          branch: update/dependancies
+          branch: update/dependencies
           title: Update dependencies
-          commit-message: Update dependanci,es
-          body: Bump versions of format depencancies to latest version
+          commit-message: Update dependencies
+          body: Bump versions of format dependencies to latest version
           labels: Dependency Update
           token: ${{ steps.generate_token.outputs.token }}
           assignees: calumy

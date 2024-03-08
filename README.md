@@ -1,6 +1,6 @@
 # Format pre-commit hook
 
-A [pre-commit](https://pre-commit.com/) hook for custom formatting using [black](https://github.com/psf/black) and [add-trailing comma](https://github.com/asottile/add-trailing-comma). The custom formatting removes trailing commas if the item can be collased onto one line.
+A [pre-commit](https://pre-commit.com/) hook for custom formatting using [black](https://github.com/psf/black) and [add-trailing comma](https://github.com/asottile/add-trailing-comma). The custom formatting removes trailing commas if the item can be collapsed onto one line.
 
 ### Using format
 
