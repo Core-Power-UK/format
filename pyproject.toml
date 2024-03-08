@@ -21,6 +21,9 @@ python_version = "3.11"
 strict = true
 
 [tool.ruff]
+target-version = "py311"
+
+[tool.ruff.lint]
 ignore = [
   "ANN101",  # Ignore missing type annotation for self
   "D106",  # Requiring doc strings in subclasses results in duplicated doc strings
@@ -34,29 +37,29 @@ ignore = [
   "T201",  # Allow print statements
 ]
 select = ["ALL"]  # Enable all ruff plugins
-target-version = "py311"
 unfixable = [
   "ERA001",  # Disable autofix for commented-out code
   "F401",  # Disable autofix for unused imports
   "F841",  # Disable autofix for unused variables
 ]
 
-[tool.ruff.flake8-tidy-imports]
+[tool.ruff.lint.flake8-tidy-imports]
 ban-relative-imports = "all"
 
-[tool.ruff.flake8-unused-arguments]
+[tool.ruff.lint.flake8-unused-arguments]
 ignore-variadic-names = true
 
-[tool.ruff.isort]
+[tool.ruff.lint.isort]
+combine-as-imports = true
 required-imports = ["from __future__ import annotations"]
 
-[tool.ruff.mccabe]
+[tool.ruff.lint.mccabe]
 max-complexity = 10
 
-[tool.ruff.per-file-ignores]
+[tool.ruff.lint.per-file-ignores]
 "__init__.py" = [
   "D104",  # Ignore - "Missing docstring in public package" for init files
 ]
 
-[tool.ruff.pydocstyle]
+[tool.ruff.lint.pydocstyle]
 convention = "google"
