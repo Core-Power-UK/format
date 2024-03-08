@@ -27,7 +27,7 @@ jobs:
           check-latest: true
 
       - name: Pip Cache
-        uses: actions/cache@v4
+        uses: actions/cache@v4.0.1
         id: python_cache
         with:
           path: |
@@ -38,7 +38,7 @@ jobs:
             env-${{ steps.setup_python.outputs.python-version }}-
 
       - name: Cache Pre-commit
-        uses: actions/cache@v4
+        uses: actions/cache@v4.0.1
         id: pre_commit_cache
         with:
           path: ~/.cache/pre-commit
