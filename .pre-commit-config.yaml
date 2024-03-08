@@ -1,5 +1,5 @@
 default_language_version:
-  python: python3
+  python: python3.11
 
 default_stages: [commit, manual]
 
@@ -8,8 +8,7 @@ repos:
     hooks:
       - id: check-hooks-apply
       - id: check-useless-excludes
-      - id: identity
-        stages: [commit]
+
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.5.0
     hooks:
@@ -25,6 +24,12 @@ repos:
       - id: check-yaml
       - id: mixed-line-ending
         args: [--fix=lf]
+      - id: file-contents-sorter
+        files: ".cspell/dict.txt"
+        args: [--ignore-case]
+      - id: file-contents-sorter
+        files: ".cspell/config_dict.txt"
+        args: [--ignore-case]
 
   - repo: https://github.com/python-jsonschema/check-jsonschema
     rev: 0.28.0
@@ -37,6 +42,18 @@ repos:
     hooks:
       - id: typos
 
+  - repo: https://github.com/DavidAnson/markdownlint-cli2
+    rev: v0.12.1
+    hooks:
+      - id: markdownlint-cli2
+        args: [--fix]
+
+  - repo: https://github.com/streetsidesoftware/cspell-cli
+    rev: v8.5.0
+    hooks:
+      - id: cspell
+        additional_dependencies:
+          - "@cspell/dict-python"
   - repo: https://github.com/pappasam/toml-sort
     rev: v0.23.1
     hooks:
@@ -46,16 +63,6 @@ repos:
           - --trailing-comma-inline-array
           - --spaces-before-inline-comment=2
           - --all
-
-  - repo: https://github.com/MarcoGorelli/auto-walrus
-    rev: v0.2.2
-    hooks:
-      - id: auto-walrus
-
-  - repo: https://github.com/Core-Power-UK/format
-    rev: v23.10.1
-    hooks:
-      - id: format
 
   - repo: https://github.com/PyCQA/flake8
     rev: 7.0.0
@@ -70,6 +77,11 @@ repos:
     hooks:
       - id: ruff
         args: [--fix]
+
+  - repo: https://github.com/Core-Power-UK/format
+    rev: v23.10.1
+    hooks:
+      - id: format
 
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v1.8.0
@@ -86,4 +98,8 @@ repos:
     hooks:
       - id: prettier
         args: [--trailing-comma, all]
-        exclude_types: [json]
+        exclude_types: [json, python]
+        exclude: |
+          (?x)(
+              ^.*\.jsonc
+          )

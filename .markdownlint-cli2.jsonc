@@ -1,0 +1,7 @@
+{
+  "config": {
+    "line-length": false,
+    "first-line-heading": false
+  },
+  "noProgress": true
+}

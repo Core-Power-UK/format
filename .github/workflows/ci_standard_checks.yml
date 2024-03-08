@@ -14,22 +14,24 @@ jobs:
         id: setup_python
         uses: actions/setup-python@v5.0.0
         with:
-          python-version: "3.11"
-          check-latest: true
+          python-version: 3.11
+
+      # Disable pip version check globally for all subsequent steps
+      - name: Disable pip version check
+        run: echo "PIP_DISABLE_PIP_VERSION_CHECK=true" >> $GITHUB_ENV
 
       - name: Pip Cache
-        uses: actions/cache@v4.0.1
+        uses: actions/cache/restore@v4.0.1
         id: python_cache
         with:
           path: |
             env
-            ~/.cache/pip
-          key: env-${{ steps.setup_python.outputs.python-version }}-${{ hashFiles('requirements/lint.txt') }}
+          key: env-${{ steps.setup_python.outputs.python-version }}-lint-${{ hashFiles('requirements/lint.txt') }}
           restore-keys: |
-            env-${{ steps.setup_python.outputs.python-version }}-
+            env-${{ steps.setup_python.outputs.python-version }}-lint-
 
       - name: Cache Pre-commit
-        uses: actions/cache@v4.0.1
+        uses: actions/cache/restore@v4.0.1
         with:
           path: ~/.cache/pre-commit
           key: pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
@@ -39,9 +41,11 @@ jobs:
       - name: Install linting dependencies
         if: ${{ steps.python_cache.outputs.cache-hit != 'true' }}
         run: |
-          python -m pip install virtualenv --disable-pip-version-check
+          python -m pip install virtualenv
           python -m virtualenv env
-          env/bin/python -m pip install -r requirements/lint.txt --disable-pip-version-check
+          env/bin/python -m pip install -r requirements/lint.txt
 
       - name: Run Pre-commit - manual
+        env:
+          PRE_COMMIT_COLOR: always
         run: env/bin/python -m pre_commit run --all-files --hook-stage manual --verbose

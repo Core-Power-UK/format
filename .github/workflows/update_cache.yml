@@ -23,8 +23,7 @@ jobs:
         id: setup_python
         uses: actions/setup-python@v5.0.0
         with:
-          python-version: "3.11"
-          check-latest: true
+          python-version: 3.11
 
       - name: Pip Cache
         uses: actions/cache@v4.0.1
@@ -32,10 +31,7 @@ jobs:
         with:
           path: |
             env
-            ~/.cache/pip
-          key: env-${{ steps.setup_python.outputs.python-version }}-${{ hashFiles('requirements/lint.txt') }}
-          restore-keys: |
-            env-${{ steps.setup_python.outputs.python-version }}-
+          key: env-${{ steps.setup_python.outputs.python-version }}-lint-${{ hashFiles('requirements/lint.txt') }}
 
       - name: Cache Pre-commit
         uses: actions/cache@v4.0.1
@@ -43,8 +39,6 @@ jobs:
         with:
           path: ~/.cache/pre-commit
           key: pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
-          restore-keys: |
-            pre-commit-
 
       - name: Install linting dependencies
         if: ${{ steps.python_cache.outputs.cache-hit != 'true' }}

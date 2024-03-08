@@ -1,5 +1,6 @@
 # !/usr/bin/env python3
-"""Parse pyproject.toml and update dependanices."""
+"""Parse pyproject.toml and update dependencies."""
+
 from __future__ import annotations
 
 import tomllib
@@ -10,39 +11,39 @@ from packaging.requirements import Requirement
 from packaging.version import Version
 
 
-def get_new_versions(depencancy: Requirement) -> list[Version] | int:
-    """Get new versions of depencancy from PYPI."""
-    print(f"Checking: {depencancy.name}")
-    specs = list(depencancy.specifier)
+def get_new_versions(dependency: Requirement) -> list[Version] | int:
+    """Get new versions of dependency from PYPI."""
+    print(f"Checking: {dependency.name}")
+    specs = list(dependency.specifier)
     if len(specs) != 1:
         print(
             "Number of specifiers found does not match expected number for"
-            f" {depencancy.name}",
+            f" {dependency.name}",
         )
         return 1
 
     spec = specs[0]
     if spec.operator != "==":
-        print(f"Operator for {depencancy.name} is not ==, please fix and try again")
+        print(f"Operator for {dependency.name} is not ==, please fix and try again")
         return 1
 
     current_version = Version(spec.version)
     print(f"Current version: {current_version}")
 
-    # Get all versions of depencancy from PYPI
+    # Get all versions of dependency from PYPI
     try:
-        resp = requests.get(
-            f"https://pypi.org/pypi/{depencancy.name}/json",
+        response = requests.get(
+            f"https://pypi.org/pypi/{dependency.name}/json",
             timeout=0.1,
         )
     except ConnectionError:
         print("Unable to connect to PYPI")
         return 1
 
-    if resp.status_code != 200:
+    if response.status_code != 200:
         raise RuntimeError
 
-    versions = [Version(release) for release in resp.json()["releases"]]
+    versions = [Version(release) for release in response.json()["releases"]]
     versions = [v for v in versions if v > current_version]
     versions.sort()
 
@@ -50,23 +51,23 @@ def get_new_versions(depencancy: Requirement) -> list[Version] | int:
 
 
 def get_new_versions_of_deps(deps: list[str]) -> list[str] | int:
-    """Get new versions of depencancy from PYPI."""
+    """Get new versions of dependency from PYPI."""
     output_deps = []
     for requirement in deps:
-        depencancy = Requirement(requirement)
-        versions = get_new_versions(depencancy)
+        dependency = Requirement(requirement)
+        versions = get_new_versions(dependency)
         if isinstance(versions, int):
             return versions
 
         # Check if new versions are available
         if len(versions) == 0:
-            print(f"No new versions found for {depencancy.name}")
+            print(f"No new versions found for {dependency.name}")
             output_deps.append(requirement)
             continue
 
         # Update to latest version
-        print(f"New versions found for {depencancy.name}: {versions[-1]}")
-        output_deps.append(f"{depencancy.name}=={versions[-1]}")
+        print(f"New versions found for {dependency.name}: {versions[-1]}")
+        output_deps.append(f"{dependency.name}=={versions[-1]}")
 
     return output_deps
 
