@@ -47,4 +47,6 @@ jobs:
           env/bin/python -m pip install -r requirements/lint.txt
 
       - name: Run Pre-commit - manual
+        env:
+          PRE_COMMIT_COLOR: always
         run: env/bin/python -m pre_commit run --all-files --hook-stage manual --verbose
