@@ -1,4 +1,5 @@
 autofix
 autoupdate
 calumy
+markdownlint
 tibdex
