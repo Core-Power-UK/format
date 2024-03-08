@@ -1,0 +1,51 @@
+{
+  "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
+  "dictionaries": ["dict", "configDict", "python"],
+  "dictionaryDefinitions": [
+    {
+      "addWords": true,
+      "description": "Custom workspace dictionary",
+      "name": "dict",
+      "path": "./.cspell/dict.txt",
+      "scope": "workspace"
+    },
+    {
+      "addWords": true,
+      "description": "Dictionary containing configuration words",
+      "name": "configDict",
+      "path": "./.cspell/config_dict.txt",
+      "scope": "workspace"
+    }
+  ],
+  "features": {
+    "weighted-suggestions": true
+  },
+  "flagWords": [
+    "centralized->centralised",
+    "customizable->customisable",
+    "customization->customisation",
+    "initialize->initialise",
+    "optimization->optimisation",
+    "optimize->optimise",
+    "optimized->optimised",
+    "optimizing->optimising",
+    "organization->organisation",
+    "prioritization->prioritisation",
+    "sanitized->sanitised",
+    "sanitizes->sanitises",
+    "standardized->standardised",
+    "utilized->utilised",
+    "utilize->utilise",
+    "minimized->minimised",
+    "visualization->visualisation"
+  ],
+  "ignorePaths": ["*.json", ".typos.toml", ".gitignore"],
+  "ignoreWords": [],
+  "import": [
+    "@cspell/dict-python/cspell-ext.json",
+  ],
+  "language": "en-GB",
+  "useGitignore": true,
+  "version": "0.2",
+  "words": []
+}

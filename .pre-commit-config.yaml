@@ -36,6 +36,12 @@ repos:
     hooks:
       - id: typos
 
+  - repo: https://github.com/streetsidesoftware/cspell-cli
+    rev: v8.5.0
+    hooks:
+      - id: cspell
+        additional_dependencies:
+          - "@cspell/dict-python"
   - repo: https://github.com/pappasam/toml-sort
     rev: v0.23.1
     hooks:
