@@ -99,3 +99,7 @@ repos:
       - id: prettier
         args: [--trailing-comma, all]
         exclude_types: [json, python]
+        exclude: |
+          (?x)(
+              ^.*\.jsonc
+          )
