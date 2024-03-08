@@ -31,10 +31,7 @@ jobs:
         with:
           path: |
             env
-            ~/.cache/pip
-          key: env-${{ steps.setup_python.outputs.python-version }}-${{ hashFiles('requirements/lint.txt') }}
-          restore-keys: |
-            env-${{ steps.setup_python.outputs.python-version }}-
+          key: env-${{ steps.setup_python.outputs.python-version }}-lint-${{ hashFiles('requirements/lint.txt') }}
 
       - name: Cache Pre-commit
         uses: actions/cache@v4.0.1
@@ -42,8 +39,6 @@ jobs:
         with:
           path: ~/.cache/pre-commit
           key: pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
-          restore-keys: |
-            pre-commit-
 
       - name: Install linting dependencies
         if: ${{ steps.python_cache.outputs.cache-hit != 'true' }}

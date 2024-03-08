@@ -29,10 +29,9 @@ jobs:
         with:
           path: |
             env
-            ~/.cache/pip
-          key: env-${{ steps.setup_python.outputs.python-version }}-${{ hashFiles('requirements/lint.txt') }}
+          key: env-${{ steps.setup_python.outputs.python-version }}-lint-${{ hashFiles('requirements/lint.txt') }}
           restore-keys: |
-            env-${{ steps.setup_python.outputs.python-version }}
+            env-${{ steps.setup_python.outputs.python-version }}-lint
 
       - name: Cache Pre-commit
         uses: actions/cache/restore@v4.0.1
