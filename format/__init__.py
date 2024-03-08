@@ -38,11 +38,6 @@ def fix_files(files: Sequence[str]) -> bool:
     )
     print("\n")
 
-    # Run Formatter
-    print("Running Formatter")
-    cmd_output("ruff", "format", *files)
-    print("\n")
-
     # Add trailing commas if needed
     print("Adding trailing commas")
     cmd_output("ruff", "check", *files, "--fix", "--select=COM812")
