@@ -1,36 +1,50 @@
 #!/usr/bin/env python3
 """Custom formatting pre-commit hook."""
+
 from __future__ import annotations
 
 import argparse
+import subprocess
 from pathlib import Path
 from typing import TYPE_CHECKING
-
-from add_trailing_comma._main import _fix_src  # type: ignore[import-untyped]
-from black import format_str
-from black.mode import Mode
 
 if TYPE_CHECKING:
     from collections.abc import Sequence
 
 
-def fix_file(file: str) -> bool:
-    """Fix a single file and write the results if changed."""
-    contents_text_orig = contents_text = Path(file).read_bytes().decode()
+def cmd_output(*cmd: str) -> None:
+    """Run a command on the command line ."""
+    process = subprocess.Popen(
+        cmd,  # noqa: S603
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        universal_newlines=True,
+    )
+    assert process.stdout is not None
+    for line in iter(process.stdout.readline, ""):
+        print(line.strip())
 
-    # Remove trailing commas
-    contents_text = format_str(contents_text, mode=Mode(magic_trailing_comma=False))
 
-    # Add trailing commas
-    contents_text = _fix_src(contents_text)
+def fix_files(files: Sequence[str]) -> bool:
+    """Run ruff on files."""
+    print("Removing trailing commas")
+    cmd_output(
+        "ruff",
+        "format",
+        *files,
+        "--config",
+        "format.skip-magic-trailing-comma=true",
+    )
+    print("\n")
 
-    # Format with black
-    contents_text = format_str(contents_text, mode=Mode(magic_trailing_comma=True))
+    print("Adding trailing commas")
+    cmd_output("ruff", "check", *files, "--fix", "--select=COM812")
+    print("\n")
 
-    if contents_text != contents_text_orig:
-        Path(file).write_bytes(contents_text.encode())
+    print("Running Formatter")
+    cmd_output("ruff", "format", *files)
 
-    return contents_text != contents_text_orig
+    return False
 
 
 def main(argv: Sequence[str] | None = None) -> int:
@@ -50,12 +64,7 @@ def main(argv: Sequence[str] | None = None) -> int:
 
             return 1
 
-    if len(args.filenames) == 1:
-        return fix_file(args.filenames[0])
-
-    from format.concurrency import fix_multiple_files
-
-    return fix_multiple_files(args.filenames)
+    return fix_files(args.filenames)
 
 
 if __name__ == "__main__":
