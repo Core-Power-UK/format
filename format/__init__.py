@@ -33,7 +33,7 @@ def fix_files(files: Sequence[str]) -> bool:
         "format",
         *files,
         "--config",
-        "format.skip-magic-trailing-comma = true",
+        "format.skip-magic-trailing-comma=true",
     )
     print("\n")
 
