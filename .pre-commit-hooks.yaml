@@ -3,5 +3,5 @@
   description: "Run custom formatting"
   entry: format
   language: python
-  types: [python]
+  types_or: [python, pyi, jupyter]
   require_serial: true
