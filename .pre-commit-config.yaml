@@ -49,7 +49,7 @@ repos:
         args: [--fix]
 
   - repo: https://github.com/streetsidesoftware/cspell-cli
-    rev: v8.5.0
+    rev: v8.6.0
     hooks:
       - id: cspell
         additional_dependencies:
@@ -80,7 +80,7 @@ repos:
       - id: format
 
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.8.0
+    rev: v1.9.0
     hooks:
       - id: mypy
         args: [--config-file, pyproject.toml]
