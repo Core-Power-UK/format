@@ -27,7 +27,6 @@ def cmd_output(*cmd: str) -> None:
 
 def fix_files(files: Sequence[str]) -> bool:
     """Run ruff on files."""
-    # Remove trailing commas
     print("Removing trailing commas")
     cmd_output(
         "ruff",
@@ -38,12 +37,10 @@ def fix_files(files: Sequence[str]) -> bool:
     )
     print("\n")
 
-    # Add trailing commas if needed
     print("Adding trailing commas")
     cmd_output("ruff", "check", *files, "--fix", "--select=COM812")
     print("\n")
 
-    # Run Formatter
     print("Running Formatter")
     cmd_output("ruff", "format", *files)
 
