@@ -90,7 +90,7 @@ repos:
         args: [--config-file, pyproject.toml]
         additional_dependencies:
           - packaging==24.0
-          - types-requests==2.31.0.7
+          - types-requests==2.31.0.20240311
 
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: v4.0.0-alpha.8
