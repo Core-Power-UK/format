@@ -1,3 +1,11 @@
+- id: ruff
+  name: ruff
+  description: "Run 'ruff' for extremely fast Python linting"
+  entry: ruff check --force-exclude
+  language: python
+  types_or: [python, pyi, jupyter]
+  require_serial: true
+
 - id: format
   name: format
   description: "Run custom formatting"
