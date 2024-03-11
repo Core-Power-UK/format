@@ -72,15 +72,11 @@ repos:
           - flake8-clean-block==0.1.2
         args: ["--ignore=E,F,W,C90"]
 
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.3.1
+  - repo: https://github.com/Core-Power-UK/format
+    rev: v24.03.1
     hooks:
       - id: ruff
         args: [--fix]
-
-  - repo: https://github.com/Core-Power-UK/format
-    rev: v23.10.1
-    hooks:
       - id: format
 
   - repo: https://github.com/pre-commit/mirrors-mypy
