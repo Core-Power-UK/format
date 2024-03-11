@@ -96,14 +96,6 @@ def update_pyproject_toml() -> int:
 
     # Get project dependencies
     deps = pyproject["project"]["dependencies"]
-    if len(deps) != 2:
-        print("Number of dependencies found does not match expected number")
-        print(
-            "Either pyproject.toml or scripts/update_dependencies.py needs to be"
-            " updated.",
-        )
-        return 1
-
     output_deps = get_new_versions_of_deps(deps)
     if isinstance(output_deps, int):
         return output_deps
