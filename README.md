@@ -10,5 +10,7 @@ Add this to your `.pre-commit-config.yaml`:
 - repo: https://github.com/Core-Power-UK/format
   rev: v24.03.1
   hooks:
+    - id: ruff
+      args: [--fix]
     - id: format
 ```
