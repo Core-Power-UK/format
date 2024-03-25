@@ -9,7 +9,7 @@ dependencies = [
 description = "Run custom formatting"
 name = "format"
 requires-python = ">=3.8"
-version = "v24.03.1"
+version = "v24.03.2"
 
 [project.scripts]
 format = "format:main"
