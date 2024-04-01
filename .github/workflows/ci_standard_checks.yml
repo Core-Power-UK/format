@@ -21,7 +21,7 @@ jobs:
         run: echo "PIP_DISABLE_PIP_VERSION_CHECK=true" >> $GITHUB_ENV
 
       - name: Pip Cache
-        uses: actions/cache/restore@v4.0.1
+        uses: actions/cache/restore@v4.0.2
         id: python_cache
         with:
           path: |
@@ -31,7 +31,7 @@ jobs:
             env-${{ steps.setup_python.outputs.python-version }}-lint-
 
       - name: Cache Pre-commit
-        uses: actions/cache/restore@v4.0.1
+        uses: actions/cache/restore@v4.0.2
         with:
           path: ~/.cache/pre-commit
           key: pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
