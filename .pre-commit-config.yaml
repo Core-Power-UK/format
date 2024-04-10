@@ -10,7 +10,7 @@ repos:
       - id: check-useless-excludes
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
+    rev: v4.6.0
     hooks:
       - id: no-commit-to-branch
         args: ["--branch", main]
@@ -32,18 +32,18 @@ repos:
         args: [--ignore-case]
 
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.28.0
+    rev: 0.28.1
     hooks:
       - id: check-dependabot
       - id: check-github-workflows
 
   - repo: https://github.com/crate-ci/typos
-    rev: v1.19.0
+    rev: v1.20.7
     hooks:
       - id: typos
 
   - repo: https://github.com/DavidAnson/markdownlint-cli2
-    rev: v0.12.1
+    rev: v0.13.0
     hooks:
       - id: markdownlint-cli2
         args: [--fix]
