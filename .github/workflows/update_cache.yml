@@ -26,7 +26,7 @@ jobs:
           python-version: 3.11
 
       - name: Pip Cache
-        uses: actions/cache@v4.0.1
+        uses: actions/cache@v4.0.2
         id: python_cache
         with:
           path: |
@@ -34,7 +34,7 @@ jobs:
           key: env-${{ steps.setup_python.outputs.python-version }}-lint-${{ hashFiles('requirements/lint.txt') }}
 
       - name: Cache Pre-commit
-        uses: actions/cache@v4.0.1
+        uses: actions/cache@v4.0.2
         id: pre_commit_cache
         with:
           path: ~/.cache/pre-commit
