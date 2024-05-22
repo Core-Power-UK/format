@@ -32,7 +32,7 @@ repos:
         args: [--ignore-case]
 
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.28.3
+    rev: 0.28.4
     hooks:
       - id: check-dependabot
       - id: check-github-workflows
@@ -73,7 +73,7 @@ repos:
         args: ["--ignore=E,F,W,C90"]
 
   - repo: https://github.com/Core-Power-UK/format
-    rev: v24.03.2
+    rev: v24.05.1
     hooks:
       - id: ruff
         args: [--fix]
