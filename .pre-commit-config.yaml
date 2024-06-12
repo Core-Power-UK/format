@@ -32,13 +32,13 @@ repos:
         args: [--ignore-case]
 
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.28.4
+    rev: 0.28.5
     hooks:
       - id: check-dependabot
       - id: check-github-workflows
 
   - repo: https://github.com/crate-ci/typos
-    rev: v1.22.0
+    rev: v1.22.4
     hooks:
       - id: typos
 
