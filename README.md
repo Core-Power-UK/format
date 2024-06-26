@@ -8,7 +8,7 @@ Add this to your `.pre-commit-config.yaml`:
 
 ```yaml
 - repo: https://github.com/Core-Power-UK/format
-  rev: v24.03.2
+  rev: v24.06.1
   hooks:
     - id: ruff
       args: [--fix]
