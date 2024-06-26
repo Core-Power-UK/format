@@ -5,6 +5,8 @@
   language: python
   types_or: [python, pyi, jupyter]
   require_serial: true
+  additional_dependencies:
+    - ruff==0.4.7
 
 - id: format
   name: format
@@ -13,3 +15,5 @@
   language: python
   types_or: [python, pyi, jupyter]
   require_serial: true
+  additional_dependencies:
+    - ruff==0.4.7

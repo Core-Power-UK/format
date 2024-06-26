@@ -4,12 +4,12 @@ requires = ["setuptools>=61.0"]
 
 [project]
 dependencies = [
-  "ruff==0.4.7",
+  "ruff>=0.4.7",
 ]
 description = "Run custom formatting"
 name = "format"
 requires-python = ">=3.8"
-version = "v24.03.2"
+version = "v24.06.1"
 
 [project.scripts]
 format = "format:main"
