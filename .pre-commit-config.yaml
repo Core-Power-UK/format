@@ -73,11 +73,15 @@ repos:
         args: ["--ignore=E,F,W,C90"]
 
   - repo: https://github.com/Core-Power-UK/format
-    rev: v24.05.1
+    rev: v24.06.1
     hooks:
       - id: ruff
         args: [--fix]
+        additional_dependencies:
+          - ruff==0.4.10
       - id: format
+        additional_dependencies:
+          - ruff==0.4.10
 
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v1.10.1

@@ -12,5 +12,9 @@ Add this to your `.pre-commit-config.yaml`:
   hooks:
     - id: ruff
       args: [--fix]
+      additional_dependencies:
+        - ruff==0.4.10
     - id: format
+      additional_dependencies:
+        - ruff==0.4.10
 ```
