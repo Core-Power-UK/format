@@ -32,13 +32,13 @@ repos:
         args: [--ignore-case]
 
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.29.0
+    rev: 0.29.1
     hooks:
       - id: check-dependabot
       - id: check-github-workflows
 
   - repo: https://github.com/crate-ci/typos
-    rev: v1.23.3
+    rev: v1.23.5
     hooks:
       - id: typos
 
@@ -49,7 +49,7 @@ repos:
         args: [--fix]
 
   - repo: https://github.com/streetsidesoftware/cspell-cli
-    rev: v8.12.0
+    rev: v8.13.0
     hooks:
       - id: cspell
         additional_dependencies:
